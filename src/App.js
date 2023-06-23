@@ -10,6 +10,7 @@ function App() {
     { itemName: 'item3', itemQuantity: 2, isSelected: false },
   ]);
   const [input, setInput] = useState('');
+  const [totalitems ,settotalitems] = useState(7);
 
   const handleClick = () => {
     const newItem = {
@@ -26,12 +27,14 @@ function App() {
     const newItems = [...items];
     newItems[index].itemQuantity++;
     setItems(newItems);
+    calculateTotal();
   };
 
   const quantityDecrease = (index) => {
     const newItems = [...items];
     newItems[index].itemQuantity--;
     setItems(newItems);
+    calculateTotal();
   };
 
   const toggleItem = (index) => {
@@ -39,6 +42,12 @@ function App() {
     newItems[index].isSelected = !newItems[index].isSelected;
     setItems(newItems);
   };
+  const calculateTotal = ()=>{
+      const totalitems = items.reduce((total,items)=>{
+        return (total + items.itemQuantity)
+      },0)
+      settotalitems(totalitems)
+  }
 
   return (
     <div className="App-background">
@@ -75,7 +84,7 @@ function App() {
             </div>
           ))}
         </div>
-        <div className='total'>Total: 6</div>
+        <div className='total'>Total: {totalitems}</div>
       </div>
     </div>
   );
